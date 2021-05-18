@@ -2,5 +2,5 @@
     functions = "functions"
 [[redirects]]
     from = "/api/*"
-    to = "http://localhost:8000/api/:splat"
+    to = "http://heroku-cp.herokuapp.com/api/:splat"
     status = 200
