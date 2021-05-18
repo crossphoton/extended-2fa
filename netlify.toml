@@ -2,5 +2,5 @@
     functions = "functions"
 [[redirects]]
     from = "/api/*"
-    to = "http://localhost:8000/api"
+    to = "http://localhost:8000/api/"splat"
     status = 200
