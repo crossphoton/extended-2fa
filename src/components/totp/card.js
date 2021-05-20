@@ -3,8 +3,12 @@ import { authenticator } from "otplib";
 function card(props) {
   const { details } = props;
   var { secret, issuer, label, algorithm, digits, period } = details;
-  // TODO: use these details after filling with default values;
   issuer = issuer || "N/A";
+  algorithm = String(algorithm).toLowerCase() || "sha1";
+  digits = Number(digits) || 6;
+  const step = period || 30;
+
+  authenticator.options = { step, digits, algorithm };
 
   var totp = authenticator.generate(secret);
 

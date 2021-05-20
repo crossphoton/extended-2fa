@@ -14,12 +14,13 @@ function qrScanner(props) {
       var result = {};
       const parsed = TOTPUriParser(url);
       result.secret = parsed.query.secret;
-      result.issuer = parsed.query.issuer;
+      result.issuer = parsed.query.issuer || parsed.label.issuer;
       result.algorithm = parsed.query.algorithm;
       result.digits = parsed.query.digits;
       result.period = parsed.query.period;
       result.label = parsed.label.account;
       if (result.secret == null) valid = false;
+      if (result.label == null) valid = false;
       if (!valid) return null;
       return result;
     }
