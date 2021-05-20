@@ -10,9 +10,9 @@ function TOTPPage(props) {
 
   var credentials = getCredentials();
 
-  var cards = credentials.map((d, index) => (
-    <TOTPCard key={index} details={d} />
-  ));
+  var cards;
+  if (credentials != null)
+    cards = credentials.map((d, index) => <TOTPCard key={index} details={d} />);
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}

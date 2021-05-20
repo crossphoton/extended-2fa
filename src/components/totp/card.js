@@ -1,10 +1,13 @@
-// import TOTPGenerator from "totp-generator";  TODO
+import { authenticator } from "otplib";
 
 function card(props) {
   const { details } = props;
-  // var { secret, issuer, label, algorithm, digits, period } = details;
+  var { secret, issuer, label, algorithm, digits, period } = details;
   // TODO: use these details after filling with default values;
-  // issuer = issuer || "";
+  issuer = issuer || "N/A";
+
+  var totp = authenticator.generate(secret);
+
   console.log(details);
   return (
     <div
@@ -22,12 +25,12 @@ function card(props) {
       }}
     >
       <div className="left">
-        <div className="provider-name">Github</div>
+        <div className="provider-name">{issuer}</div>
         <div
           className="account-name"
           style={{ fontWeight: "300", fontSize: "10px" }}
         >
-          adiag1200@gmail.com
+          {label}
         </div>
       </div>
       <div className="code" style={{ display: "flex", alignItems: "center" }}>
@@ -45,7 +48,7 @@ function card(props) {
         >
           20
         </div>
-        <div>132456</div>
+        <div>{totp}</div>
       </div>
     </div>
   );

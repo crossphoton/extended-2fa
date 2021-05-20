@@ -1,4 +1,5 @@
 import QrScanner from "qr-scanner";
+import TOTPUriParser from "otpauth-uri-parser";
 import Button from "@material-ui/core/Button";
 
 function qrScanner(props) {
@@ -10,12 +11,17 @@ function qrScanner(props) {
 
     function verifyURL(url) {
       var valid = true;
-      const urlParser = new URL(url);
-      if (urlParser.protocol !== "otpauth:") valid = false;
-      const secret = urlParser.searchParams.get("secret");
-      if (secret == null) valid = false;
+      var result = {};
+      const parsed = TOTPUriParser(url);
+      result.secret = parsed.query.secret;
+      result.issuer = parsed.query.issuer;
+      result.algorithm = parsed.query.algorithm;
+      result.digits = parsed.query.digits;
+      result.period = parsed.query.period;
+      result.label = parsed.label.account;
+      if (result.secret == null) valid = false;
       if (!valid) return null;
-      return { secret };
+      return result;
     }
 
     function complete(result) {
