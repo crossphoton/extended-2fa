@@ -5,16 +5,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
 import { blue } from "@material-ui/core/colors";
-import GoogleLoginButton from "react-google-button";
-import GithubLoginButton from "react-github-login-button";
 import Avatar from "@material-ui/core/Avatar";
-
-import { createClient } from "@supabase/supabase-js";
+import SimpleDialog from "./loginDialog";
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
@@ -32,45 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SimpleDialog(props) {
-  const { onClose, open, supaClient } = props;
-
-  const handleClose = () => {
-    onClose();
-  };
-
-  const handleLoginClick = (provider) => {
-    supaClient.auth.signIn({ provider });
-  };
-
-  return (
-    <Dialog
-      onClose={handleClose}
-      aria-labelledby="simple-dialog-title"
-      open={open}
-    >
-      <DialogTitle id="simple-dialog-title">Choose Login method</DialogTitle>
-      <List>
-        <ListItem onClick={() => handleLoginClick("google")}>
-          <GoogleLoginButton />
-        </ListItem>
-        <ListItem onClick={() => handleLoginClick("github")}>
-          <GithubLoginButton />
-        </ListItem>
-      </List>
-    </Dialog>
-  );
-}
-
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(false);
   const [openLogin, setOpenLogin] = React.useState(false);
 
-  const supaClient = createClient(
-    "https://eowxmpvqnxlnzyxdmatv.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyMTMzOTA1NSwiZXhwIjoxOTM2OTE1MDU1fQ.LAv9mB6v07KYl24NPeouLFSF06PAjaHQC8CvH7E4-gA"
-  );
+  const { supaClient } = props;
 
   var user = supaClient.auth.user();
 
