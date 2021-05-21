@@ -1,8 +1,10 @@
 import QrScanner from "qr-scanner";
+import QrScannerWorkerPath from "!!file-loader!./node_modules/qr-scanner/qr-scanner-worker.min.js";
 import TOTPUriParser from "otpauth-uri-parser";
 import Button from "@material-ui/core/Button";
 
 function qrScanner(props) {
+  QrScanner.WORKER_PATH = QrScannerWorkerPath;
   const { hideScanner } = props;
 
   function startScanner() {
