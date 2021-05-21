@@ -11,8 +11,8 @@ function card(props) {
     <div
       className="totp-card"
       style={{
-        width: "80vw",
-        margin: "30px",
+        width: "90vw",
+        margin: "30px 0px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",

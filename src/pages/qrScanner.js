@@ -46,6 +46,21 @@ function qrScanner(props) {
 
       collection.push(verify);
       localStorage.setItem("collection", JSON.stringify(collection));
+      localStorage.setItem("toPush", true);
+
+      var token = localStorage.getItem("supabase.auth.token");
+      if (token) {
+        token = JSON.parse(token).currentSession.access_token;
+
+        fetch("/api/sync", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(collection),
+        }).then(() => localStorage.setItem("toPush", false));
+      }
     }
 
     qrScanner.start();

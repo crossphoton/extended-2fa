@@ -1,5 +1,6 @@
 [build]
-    functions = "functions"
-
-[build.environment]
-    GO_IMPORT_PATH = "github.com/crossphoton/extended-2fa"
+  functions = "netlify/functions"
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

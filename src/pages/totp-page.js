@@ -4,12 +4,35 @@ import { useState } from "react";
 
 function TOTPPage(props) {
   const { showScanner } = props;
+
+  function networkFetch() {
+    var token = localStorage.getItem("supabase.auth.token");
+    if (token) {
+      token = JSON.parse(token).currentSession.access_token;
+      var consent = window.confirm("Fetch from database?");
+      if (consent) {
+        fetch("/api/sync", { headers: { Authorization: `Bearer ${token}` } })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.secrets)
+              localStorage.setItem(
+                "collection",
+                JSON.stringify(data.secrets.data)
+              );
+          });
+      }
+    }
+  }
+
   function getCredentials() {
     var collection = JSON.parse(localStorage.getItem("collection"));
     return collection;
   }
   const [value, setValue] = useState(0);
-  const handleRefresh = () => setValue(value + 1);
+  const handleRefresh = () => {
+    networkFetch();
+    setValue(value + 1);
+  };
 
   var credentials = getCredentials();
 

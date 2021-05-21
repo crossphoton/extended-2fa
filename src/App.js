@@ -11,7 +11,6 @@ const supaClient = createClient(
 
 function App() {
   const [showPicker, setShowPicker] = useState(false);
-
   const hideScanner = (bool) => setShowPicker(!bool);
 
   return showPicker ? (
