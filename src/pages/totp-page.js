@@ -13,6 +13,12 @@ function TOTPPage(props) {
 
   var credentials = getCredentials();
 
+  const noCredentialsText =
+    "No credentials found. " +
+    (navigator.userAgentData.mobile
+      ? "Add some using the button below."
+      : "Add them in your phone.");
+
   var cards;
   if (credentials != null)
     cards = credentials.map((d, index) => <TOTPCard key={index} details={d} />);
@@ -21,19 +27,21 @@ function TOTPPage(props) {
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       {credentials == null ? (
-        <div> No credentials found</div>
+        <div style={{ margin: 100 }}>{noCredentialsText}</div>
       ) : (
         <div>{cards}</div>
       )}
       <div>
-        <Button
-          style={{ margin: "10px" }}
-          variant="contained"
-          color="primary"
-          onClick={() => showScanner(true)}
-        >
-          ADD
-        </Button>
+        {navigator.userAgentData.mobile && (
+          <Button
+            style={{ margin: "10px" }}
+            variant="contained"
+            color="primary"
+            onClick={() => showScanner(true)}
+          >
+            ADD
+          </Button>
+        )}
         <Button
           style={{ margin: "10px" }}
           onClick={handleRefresh}

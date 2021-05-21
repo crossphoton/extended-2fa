@@ -7,10 +7,11 @@ import Button from "@material-ui/core/Button";
 function qrScanner(props) {
   QrScanner.WORKER_PATH = QrScannerWorkerPath;
   const { hideScanner } = props;
+  var qrScanner;
 
   function startScanner() {
     const videoElem = document.getElementById("scanner-video-element");
-    const qrScanner = new QrScanner(videoElem, complete);
+    qrScanner = new QrScanner(videoElem, complete);
 
     function verifyURL(url) {
       var valid = true;
@@ -54,11 +55,33 @@ function qrScanner(props) {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <video
         id="scanner-video-element"
-        style={{ maxWidth: "100vw", maxHeight: "100vh" }}
+        style={{ maxWidth: "100vw", maxHeight: "100vh", padding: "10px 10px" }}
       />
-      <Button style={{ padding: 20 }} variant="outlined" onClick={startScanner}>
-        START
-      </Button>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Button
+          style={{ padding: "20 5" }}
+          variant="outlined"
+          onClick={startScanner}
+        >
+          START
+        </Button>
+        <Button
+          style={{ padding: "20 5" }}
+          variant="outlined"
+          onClick={() => {
+            if (qrScanner) qrScanner.stop();
+            hideScanner(true);
+          }}
+        >
+          STOP
+        </Button>
+      </div>
     </div>
   );
 }

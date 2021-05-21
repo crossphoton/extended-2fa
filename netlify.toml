@@ -1,6 +1,5 @@
 [build]
     functions = "functions"
-[[redirects]]
-    from = "/api/*"
-    to = "http://heroku-cp.herokuapp.com/api/:splat"
-    status = 200
+
+[build.environment]
+    GO_IMPORT_PATH = "github.com/crossphoton/extended-2fa"
