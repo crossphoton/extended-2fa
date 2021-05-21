@@ -2,17 +2,11 @@ import { authenticator } from "otplib";
 
 function card(props) {
   const { details } = props;
-  var { secret, issuer, label, algorithm, digits, period } = details;
-  issuer = issuer || "N/A";
-  algorithm = String(algorithm).toLowerCase() || "sha1";
-  digits = Number(digits) || 6;
-  const step = period || 30;
-
+  var { secret, issuer, label, algorithm, digits, step } = details;
   authenticator.options = { step, digits, algorithm };
 
   var totp = authenticator.generate(secret);
 
-  console.log(details);
   return (
     <div
       className="totp-card"
@@ -38,7 +32,7 @@ function card(props) {
         </div>
       </div>
       <div className="code" style={{ display: "flex", alignItems: "center" }}>
-        <div
+        {/* <div
           className="totp-timer"
           style={{
             fontWeight: 600,
@@ -51,7 +45,7 @@ function card(props) {
           }}
         >
           20
-        </div>
+        </div> */}
         <div>{totp}</div>
       </div>
     </div>

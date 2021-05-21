@@ -1,5 +1,6 @@
+/* eslint import/no-webpack-loader-syntax: off */
+import QrScannerWorkerPath from "file-loader!../../node_modules/qr-scanner/qr-scanner-worker.min.js";
 import QrScanner from "qr-scanner";
-import QrScannerWorkerPath from "!!file-loader!./node_modules/qr-scanner/qr-scanner-worker.min.js";
 import TOTPUriParser from "otpauth-uri-parser";
 import Button from "@material-ui/core/Button";
 
@@ -16,11 +17,12 @@ function qrScanner(props) {
       var result = {};
       const parsed = TOTPUriParser(url);
       result.secret = parsed.query.secret;
-      result.issuer = parsed.query.issuer || parsed.label.issuer;
-      result.algorithm = parsed.query.algorithm;
-      result.digits = parsed.query.digits;
-      result.period = parsed.query.period;
+      result.issuer = parsed.query.issuer || parsed.label.issuer || "N/A";
+      result.algorithm = parsed.query.algorithm || "sha1";
+      result.digits = Number(parsed.query.digits) || 6;
+      result.step = Number(parsed.query.period) || 30;
       result.label = parsed.label.account;
+      result.algorithm = String(result.algorithm).toLowerCase();
       if (result.secret == null) valid = false;
       if (result.label == null) valid = false;
       if (!valid) return null;

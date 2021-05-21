@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import TOTPCard from "../components/totp/card";
+import { useState } from "react";
 
 function TOTPPage(props) {
   const { showScanner } = props;
@@ -7,6 +8,8 @@ function TOTPPage(props) {
     var collection = JSON.parse(localStorage.getItem("collection"));
     return collection;
   }
+  const [value, setValue] = useState(0);
+  const handleRefresh = () => setValue(value + 1);
 
   var credentials = getCredentials();
 
@@ -22,14 +25,24 @@ function TOTPPage(props) {
       ) : (
         <div>{cards}</div>
       )}
-
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => showScanner(true)}
-      >
-        Add more
-      </Button>
+      <div>
+        <Button
+          style={{ margin: "10px" }}
+          variant="contained"
+          color="primary"
+          onClick={() => showScanner(true)}
+        >
+          ADD
+        </Button>
+        <Button
+          style={{ margin: "10px" }}
+          onClick={handleRefresh}
+          variant="contained"
+          color="primary"
+        >
+          Refresh
+        </Button>
+      </div>
     </div>
   );
 }
