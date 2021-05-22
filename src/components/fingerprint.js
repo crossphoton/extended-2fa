@@ -1,8 +1,16 @@
 import { Button } from "@material-ui/core";
 import base64 from "base64-arraybuffer";
 
+const noFingerPrintError =
+  "NotAllowedError: The operation either timed out or was not allowed. See: https://www.w3.org/TR/webauthn-2/#sctn-privacy-considerations-client.";
 function FingerprintPage(props) {
   const { setAuthorized } = props;
+
+  if (localStorage.getItem("fingerprint") === "false") {
+    setTimeout(() => setAuthorized(true), 100);
+    return null;
+  }
+
   function fingerStart() {
     navigator.credentials.preventSilentAccess();
     navigator.credentials
@@ -27,7 +35,13 @@ function FingerprintPage(props) {
           ],
         },
       })
-      .then(() => setAuthorized(true));
+      .then(() => setAuthorized(true))
+      .catch((err) => {
+        if (noFingerPrintError.toString() === err.toString()) {
+          setAuthorized(true);
+          localStorage.setItem("fingerprint", "false");
+        }
+      });
   }
 
   return (
