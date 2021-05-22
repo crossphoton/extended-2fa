@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - preact-test
   pull_request:
     branches:
       - main
+      - preact-test
 
 jobs:
   build:
