@@ -7,7 +7,7 @@ function TOTPPage(props) {
   const { showScanner } = props;
   const [value, setValue] = useState(true);
 
-  function checkAuthorizationRequired() {}
+  // function checkAuthorizationRequired() {}
   const [auth, setAuth] = useState(navigator.userAgentData.mobile);
 
   function networkFetch() {
