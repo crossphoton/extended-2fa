@@ -1,5 +1,6 @@
 import { Button } from "@material-ui/core";
-import base64 from "base64-arraybuffer";
+import decode from "./base64tobuffer";
+import { randomBytes } from "crypto";
 
 const noFingerPrintError =
   "NotAllowedError: The operation either timed out or was not allowed. See: https://www.w3.org/TR/webauthn-2/#sctn-privacy-considerations-client.";
@@ -20,12 +21,10 @@ function FingerprintPage(props) {
             authenticatorAttachment: "platform",
             userVerification: "required",
           },
-          challenge: base64.decode(
-            require("crypto").randomBytes(16).toString("hex")
-          ),
+          challenge: decode(randomBytes(16).toString("hex")),
           rp: { id: document.domain, name: "crossphoton inc." },
           user: {
-            id: base64.decode(require("crypto").randomBytes(4).toString("hex")),
+            id: decode(randomBytes(4).toString("hex")),
             name: "You",
             displayName: "You",
           },
