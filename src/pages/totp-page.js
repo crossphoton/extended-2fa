@@ -8,7 +8,7 @@ function TOTPPage(props) {
   const [value, setValue] = useState(true);
 
   // function checkAuthorizationRequired() {}
-  const [auth, setAuth] = useState(navigator.userAgentData.mobile);
+  const [auth, setAuth] = useState(!navigator.userAgentData.mobile);
 
   function networkFetch() {
     var token = localStorage.getItem("supabase.auth.token");
