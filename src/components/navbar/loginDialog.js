@@ -13,7 +13,10 @@ function SimpleDialog(props) {
   };
 
   const handleLoginClick = (provider) => {
-    supaClient.auth.signIn({ provider });
+    supaClient.auth.signIn(
+      { provider },
+      { redirectTo: window.location.origin }
+    );
   };
 
   return (

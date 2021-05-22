@@ -1,9 +1,14 @@
 import Button from "@material-ui/core/Button";
 import TOTPCard from "../components/totp/card";
+import Fingerprint from "../components/fingerprint";
 import { useState } from "react";
 
 function TOTPPage(props) {
   const { showScanner } = props;
+  const [value, setValue] = useState(true);
+
+  function checkAuthorizationRequired() {}
+  const [auth, setAuth] = useState(navigator.userAgentData.mobile);
 
   function networkFetch() {
     var token = localStorage.getItem("supabase.auth.token");
@@ -14,13 +19,15 @@ function TOTPPage(props) {
         fetch("/api/sync", { headers: { Authorization: `Bearer ${token}` } })
           .then((res) => res.json())
           .then((data) => {
-            if (data.secrets)
+            if (data)
               localStorage.setItem(
                 "collection",
                 JSON.stringify(data.secrets.data)
               );
           });
       }
+    } else {
+      alert("User not logged in!!");
     }
   }
 
@@ -28,10 +35,8 @@ function TOTPPage(props) {
     var collection = JSON.parse(localStorage.getItem("collection"));
     return collection;
   }
-  const [value, setValue] = useState(0);
   const handleRefresh = () => {
-    networkFetch();
-    setValue(value + 1);
+    setValue(!value);
   };
 
   var credentials = getCredentials();
@@ -45,16 +50,23 @@ function TOTPPage(props) {
   var cards;
   if (credentials != null)
     cards = credentials.map((d, index) => <TOTPCard key={index} details={d} />);
-  return (
+
+  setInterval(handleRefresh, 1000);
+
+  return auth ? (
     <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
     >
       {credentials == null ? (
         <div style={{ margin: 100 }}>{noCredentialsText}</div>
       ) : (
         <div>{cards}</div>
       )}
-      <div>
+      <div align="center">
         {navigator.userAgentData.mobile && (
           <Button
             style={{ margin: "10px" }}
@@ -73,8 +85,18 @@ function TOTPPage(props) {
         >
           Refresh
         </Button>
+        <Button
+          style={{ margin: "10px" }}
+          variant="contained"
+          color="secondary"
+          onClick={networkFetch}
+        >
+          Network Sync
+        </Button>
       </div>
     </div>
+  ) : (
+    <Fingerprint authorized={auth} setAuthorized={setAuth} />
   );
 }
 
