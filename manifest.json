@@ -1,0 +1,17 @@
+{
+  "name": "Extended 2FA",
+  "icons": [
+    {
+      "src": "/icons/logo.png",
+      "type": "image/png",
+      "sizes": "1024x1024",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "short_name": "Ex2fA",
+  "description": "This app provides a extended version of 2FA with minimal installation.",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
