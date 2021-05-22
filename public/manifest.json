@@ -2,7 +2,7 @@
   "name": "Extended 2FA",
   "icons": [
     {
-      "src": "extended-2fa/icons/logo.png",
+      "src": "icons/logo.png",
       "type": "image/png",
       "sizes": "1024x1024",
       "purpose": "any maskable"
