@@ -1,66 +1,44 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import MenuItem from "@material-ui/core/MenuItem";
-import { blue } from "@material-ui/core/colors";
-import Avatar from "@material-ui/core/Avatar";
-import SimpleDialog from "./loginDialog";
+// import IconButton from "@material-ui/core/IconButton";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import Avatar from "@material-ui/core/Avatar";
+// import SimpleDialog from "./loginDialog";
+// import supaClient from "../../lib/supaClient";
 
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
-  },
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
+export default function MenuAppBar() {
+  // const [auth, setAuth] = React.useState(false);
+  // const [openLogin, setOpenLogin] = React.useState(false);
 
-export default function MenuAppBar(props) {
-  const classes = useStyles();
-  const [auth, setAuth] = React.useState(false);
-  const [openLogin, setOpenLogin] = React.useState(false);
+  // var user = supaClient.auth.user();
 
-  const { supaClient } = props;
+  // const checkLogin = () => {
+  //   user = supaClient.auth.user();
+  //   if (user) {
+  //     setAuth(true);
+  //   }
+  // };
 
-  var user = supaClient.auth.user();
+  // const handleLogout = () => {
+  //   supaClient.auth.signOut();
+  //   setAuth(false);
+  // };
 
-  const checkLogin = () => {
-    user = supaClient.auth.user();
-    if (user) {
-      setAuth(true);
-    }
-  };
+  // const handleLogin = () => {
+  //   setOpenLogin(true);
+  // };
 
-  const handleLogout = () => {
-    supaClient.auth.signOut();
-    setAuth(false);
-  };
-
-  const handleLogin = () => {
-    setOpenLogin(true);
-  };
-
-  const handleLoginDialogClose = () => {
-    setOpenLogin(false);
-  };
+  // const handleLoginDialogClose = () => {
+  //   setOpenLogin(false);
+  // };
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Extended 2FA
-        </Typography>
-        {auth && (
+        <Typography variant="h6">Extended 2FA</Typography>
+        {/* {auth && (
           <div style={{ display: "flex" }}>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
             <div>
@@ -82,13 +60,12 @@ export default function MenuAppBar(props) {
         {!auth && <MenuItem onClick={handleLogin}>Login</MenuItem>}
         <SimpleDialog
           open={openLogin}
-          supaClient={supaClient}
           onClose={handleLoginDialogClose}
-        />
+        /> */}
       </Toolbar>
-      <div style={{ display: "none" }}>
+      {/* <div style={{ display: "none" }}>
         {!auth ? setTimeout(checkLogin, 200) : null}
-      </div>
+      </div> */}
     </AppBar>
   );
 }

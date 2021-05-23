@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import decode from "./base64tobuffer";
+import decode from "../lib/base64tobuffer";
 import { randomBytes } from "crypto";
 
 const noFingerPrintError =
