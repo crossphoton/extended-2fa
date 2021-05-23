@@ -1,7 +1,7 @@
 /* eslint import/no-webpack-loader-syntax: off */
 import QrScannerWorkerPath from "file-loader!../../node_modules/qr-scanner/qr-scanner-worker.min.js";
 import QrScanner from "qr-scanner";
-import TOTPUriParser from "otpauth-uri-parser";
+import TOTPUriParser from "../components/parseUri";
 import Button from "@material-ui/core/Button";
 
 function qrScanner(props) {

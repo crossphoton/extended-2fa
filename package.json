@@ -1,27 +1,23 @@
 {
   "name": "extended-2fa",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
     "@supabase/supabase-js": "^1.11.13",
-    "base64-arraybuffer": "^0.2.0",
-    "otpauth-uri-parser": "^1.0.1",
     "otplib": "^12.0.1",
-    "pg": "^8.6.0",
     "qr-scanner": "^1.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-github-login-button": "^1.0.1",
     "react-google-button": "^0.7.2",
-    "react-scripts": "4.0.3",
-    "string-crypto": "^2.0.1"
+    "react-scripts": "4.0.3"
   },
   "scripts": {
-    "start": "PORT=3000 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "PORT=3000 react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,6 +39,10 @@
     ]
   },
   "devDependencies": {
-    "file-loader": "^6.1.1"
+    "customize-cra": "^1.0.0",
+    "file-loader": "^6.2.0",
+    "react-app-rewired": "^2.1.8",
+    "source-map-explorer": "^2.5.2",
+    "uglifyjs-webpack-plugin": "^2.2.0"
   }
 }

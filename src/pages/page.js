@@ -13,20 +13,11 @@ const styles = {
 function pageRenderer(props) {
   const { showScanner } = props;
 
-  // TODO: currently fingerprint not implemented (expected: server won't be needed)
-  function checkFingerprintAuth() {
-    // const value = sessionStorage.getItem("authenticated");
-    return true;
-  }
   return (
     <div style={styles.page}>
-      {checkFingerprintAuth() ? (
-        <div className="main-content">
-          <TOTPPage showScanner={showScanner} />
-        </div>
-      ) : (
-        <div>Login in first</div>
-      )}
+      <div className="main-content">
+        <TOTPPage showScanner={showScanner} />
+      </div>
     </div>
   );
 }
