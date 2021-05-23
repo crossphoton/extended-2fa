@@ -2,6 +2,8 @@ import { Button } from "@material-ui/core";
 import decode from "../lib/base64tobuffer";
 import { randomBytes } from "crypto";
 
+let firstPrompt = true;
+
 const noFingerPrintError =
   "NotAllowedError: The operation either timed out or was not allowed. See: https://www.w3.org/TR/webauthn-2/#sctn-privacy-considerations-client.";
 function FingerprintPage(props) {
@@ -41,6 +43,11 @@ function FingerprintPage(props) {
           localStorage.setItem("fingerprint", "false");
         }
       });
+  }
+
+  if (firstPrompt) {
+    firstPrompt = false;
+    fingerStart();
   }
 
   return (

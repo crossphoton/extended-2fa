@@ -1,6 +1,6 @@
 import Button from "@material-ui/core/Button";
 import TOTPCard from "../components/totp/card";
-import Fingerprint from "../components/fingerprint";
+import Fingerprint from "../pages/fingerprint";
 import { useState } from "react";
 
 function TOTPPage(props) {

@@ -52,6 +52,8 @@ function qrScanner(props) {
     qrScanner.start();
   }
 
+  setTimeout(startScanner, 500);
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <video
