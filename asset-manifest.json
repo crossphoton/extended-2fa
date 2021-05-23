@@ -1,18 +1,16 @@
 {
   "files": {
-    "main.js": "/static/js/main.5128b160.chunk.js",
-    "main.js.map": "/static/js/main.5128b160.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.6f5cacdb.js",
-    "runtime-main.js.map": "/static/js/runtime-main.6f5cacdb.js.map",
-    "static/js/2.61c6c6c0.chunk.js": "/static/js/2.61c6c6c0.chunk.js",
-    "static/js/2.61c6c6c0.chunk.js.map": "/static/js/2.61c6c6c0.chunk.js.map",
+    "main.js": "/static/js/main.8de27c96.chunk.js",
+    "runtime-main.js": "/static/js/runtime-main.99ad50fe.js",
+    "static/js/2.b232abae.chunk.js": "/static/js/2.b232abae.chunk.js",
+    "static/js/2.b232abae.chunk.js.map": "/static/js/2.b232abae.chunk.js.map",
     "qr-scanner-worker.min.js": "/1f6db49b81aeafce10da4850ddd1c06e.js",
     "index.html": "/index.html",
-    "static/js/2.61c6c6c0.chunk.js.LICENSE.txt": "/static/js/2.61c6c6c0.chunk.js.LICENSE.txt"
+    "static/js/2.b232abae.chunk.js.LICENSE.txt": "/static/js/2.b232abae.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.6f5cacdb.js",
-    "static/js/2.61c6c6c0.chunk.js",
-    "static/js/main.5128b160.chunk.js"
+    "static/js/runtime-main.99ad50fe.js",
+    "static/js/2.b232abae.chunk.js",
+    "static/js/main.8de27c96.chunk.js"
   ]
 }
