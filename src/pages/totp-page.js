@@ -10,26 +10,26 @@ function TOTPPage(props) {
   // function checkAuthorizationRequired() {}
   const [auth, setAuth] = useState(!navigator.userAgentData.mobile);
 
-  function networkFetch() {
-    var token = localStorage.getItem("supabase.auth.token");
-    if (token) {
-      token = JSON.parse(token).currentSession.access_token;
-      var consent = window.confirm("Fetch from database?");
-      if (consent) {
-        fetch("/api/sync", { headers: { Authorization: `Bearer ${token}` } })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data)
-              localStorage.setItem(
-                "collection",
-                JSON.stringify(data.secrets.data)
-              );
-          });
-      }
-    } else {
-      alert("User not logged in!!");
-    }
-  }
+  // function networkFetch() {
+  //   var token = localStorage.getItem("supabase.auth.token");
+  //   if (token) {
+  //     token = JSON.parse(token).currentSession.access_token;
+  //     var consent = window.confirm("Fetch from database?");
+  //     if (consent) {
+  //       fetch("/api/sync", { headers: { Authorization: `Bearer ${token}` } })
+  //         .then((res) => res.json())
+  //         .then((data) => {
+  //           if (data)
+  //             localStorage.setItem(
+  //               "collection",
+  //               JSON.stringify(data.secrets.data)
+  //             );
+  //         });
+  //     }
+  //   } else {
+  //     alert("User not logged in!!");
+  //   }
+  // }
 
   function getCredentials() {
     var collection = JSON.parse(localStorage.getItem("collection"));
@@ -85,14 +85,14 @@ function TOTPPage(props) {
         >
           Refresh
         </Button>
-        <Button
+        {/* <Button
           style={{ margin: "10px" }}
           variant="contained"
           color="secondary"
           onClick={networkFetch}
         >
           Network Sync
-        </Button>
+        </Button> */}
       </div>
     </div>
   ) : (
