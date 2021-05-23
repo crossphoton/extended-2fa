@@ -2,5 +2,4 @@
 # Extended 2FA
 
 TODO
-- [ ] Fix no entry in table for secrets_store.
 - [ ] Use UI Avatars and make accordion for card. ("https://ui-avatars.com/api/?length=1&name=Google&background=random")
