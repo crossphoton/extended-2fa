@@ -1,11 +1,11 @@
 import Button from "@material-ui/core/Button";
 import TOTPCard from "../components/totp/card";
-import Fingerprint from "../components/fingerprint";
+import Fingerprint from "../pages/fingerprint";
 import { useState } from "react";
 
 function TOTPPage(props) {
   const { showScanner } = props;
-  const [value, setValue] = useState(true);
+  const [value, setValue] = useState(true); // To force re-render
 
   // function checkAuthorizationRequired() {}
   const [auth, setAuth] = useState(!navigator.userAgentData.mobile);
@@ -51,7 +51,7 @@ function TOTPPage(props) {
   if (credentials != null)
     cards = credentials.map((d, index) => <TOTPCard key={index} details={d} />);
 
-  setInterval(handleRefresh, 1000);
+  setInterval(handleRefresh, 5000);
 
   return auth ? (
     <div

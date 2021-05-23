@@ -1,9 +1,11 @@
 import { Button } from "@material-ui/core";
-import decode from "./base64tobuffer";
+import decode from "../lib/base64tobuffer";
 import { randomBytes } from "crypto";
 
+let firstPrompt = true;
 const noFingerPrintError =
   "NotAllowedError: The operation either timed out or was not allowed. See: https://www.w3.org/TR/webauthn-2/#sctn-privacy-considerations-client.";
+
 function FingerprintPage(props) {
   const { setAuthorized } = props;
 
@@ -43,6 +45,11 @@ function FingerprintPage(props) {
       });
   }
 
+  if (firstPrompt) {
+    firstPrompt = false;
+    fingerStart();
+  }
+
   return (
     <div
       style={{
@@ -54,7 +61,7 @@ function FingerprintPage(props) {
         alignItems: "center",
       }}
     >
-      <p>Authorization required</p>
+      <p>Authorization is required</p>
       <Button onClick={fingerStart} variant="contained" color="secondary">
         SCAN FINGERPRINT
       </Button>

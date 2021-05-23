@@ -4,9 +4,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import GoogleLoginButton from "react-google-button";
 import GithubLoginButton from "react-github-login-button";
+import supaClient from "../../lib/supaClient";
 
 function SimpleDialog(props) {
-  const { onClose, open, supaClient } = props;
+  const { onClose, open } = props;
 
   const handleClose = () => {
     onClose();

@@ -1,22 +1,35 @@
-/* eslint import/no-webpack-loader-syntax: off */
-import QrScannerWorkerPath from "file-loader!../../node_modules/qr-scanner/qr-scanner-worker.min.js";
-import QrScanner from "qr-scanner";
-import TOTPUriParser from "../components/parseUri";
+import TOTPURIParser from "../lib/parseUri";
 import Button from "@material-ui/core/Button";
+import CameraUtil from "../lib/startCamera";
+import ScannerUtil from "../lib/qrScanner";
 
 function qrScanner(props) {
-  QrScanner.WORKER_PATH = QrScannerWorkerPath;
   const { hideScanner } = props;
-  var qrScanner;
+  var stream;
+  const stopStreams = () => {
+    if (stream) {
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
+    }
+  };
 
-  function startScanner() {
+  async function startScanner() {
     const videoElem = document.getElementById("scanner-video-element");
-    qrScanner = new QrScanner(videoElem, complete);
+    stream = await CameraUtil(videoElem);
+    videoElem.srcObject = stream;
+    ScannerUtil(videoElem, complete, barcodeError);
+
+    function barcodeError(err) {
+      stopStreams();
+      alert(err);
+      hideScanner(true);
+    }
 
     function verifyURL(url) {
       var valid = true;
       var result = {};
-      const parsed = TOTPUriParser(url);
+      const parsed = TOTPURIParser(url);
       result.secret = parsed.query.secret;
       result.issuer = parsed.query.issuer || parsed.label.issuer || "N/A";
       result.algorithm = parsed.query.algorithm || "sha1";
@@ -30,12 +43,15 @@ function qrScanner(props) {
       return result;
     }
 
-    async function complete(result) {
+    function complete(result) {
       const verify = verifyURL(result);
+      console.log("It came here with    ", result);
       if (verify != null) {
-        qrScanner.stop();
-        hideScanner(true);
-      } else return;
+        stopStreams();
+      } else {
+        ScannerUtil(videoElem, complete);
+        return;
+      }
       var collection = [];
       var current = JSON.parse(localStorage.getItem("collection"));
       if (current == null) {
@@ -47,14 +63,14 @@ function qrScanner(props) {
       collection.push(verify);
       localStorage.setItem("collection", JSON.stringify(collection));
       localStorage.setItem("toPush", true);
+      hideScanner(true);
     }
-
-    qrScanner.start();
   }
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <video
+        autoPlay
         id="scanner-video-element"
         style={{ maxWidth: "100vw", maxHeight: "100vh", padding: "10px 10px" }}
       />
@@ -68,7 +84,9 @@ function qrScanner(props) {
         <Button
           style={{ padding: "20 5" }}
           variant="outlined"
-          onClick={startScanner}
+          onClick={() => {
+            startScanner();
+          }}
         >
           START
         </Button>
@@ -76,12 +94,15 @@ function qrScanner(props) {
           style={{ padding: "20 5" }}
           variant="outlined"
           onClick={() => {
-            if (qrScanner) qrScanner.stop();
+            stopStreams();
             hideScanner(true);
           }}
         >
-          STOP
+          CANCEL
         </Button>
+      </div>
+      <div style={{ display: "none" }}>
+        {true ? setTimeout(startScanner, 0) : null}
       </div>
     </div>
   );
