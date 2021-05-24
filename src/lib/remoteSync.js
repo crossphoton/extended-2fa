@@ -22,3 +22,26 @@
 //     body: encryptedString,
 //   }).then(() => localStorage.setItem("toPush", false));
 // }
+
+/* From totp page */
+
+// function networkFetch() {
+//   var token = localStorage.getItem("supabase.auth.token");
+//   if (token) {
+//     token = JSON.parse(token).currentSession.access_token;
+//     var consent = window.confirm("Fetch from database?");
+//     if (consent) {
+//       fetch("/api/sync", { headers: { Authorization: `Bearer ${token}` } })
+//         .then((res) => res.json())
+//         .then((data) => {
+//           if (data)
+//             localStorage.setItem(
+//               "collection",
+//               JSON.stringify(data.secrets.data)
+//             );
+//         });
+//     }
+//   } else {
+//     alert("User not logged in!!");
+//   }
+// }

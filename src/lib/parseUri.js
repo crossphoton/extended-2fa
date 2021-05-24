@@ -41,4 +41,19 @@ function parseURI(uri) {
   return { type: type.toLowerCase(), label, query };
 }
 
-export default parseURI;
+export default function verifyCredentials(url) {
+  var valid = true;
+  var result = {};
+  const parsed = parseURI(url);
+  result.secret = parsed.query.secret;
+  result.issuer = parsed.query.issuer || parsed.label.issuer || "N/A";
+  result.algorithm = parsed.query.algorithm || "sha1";
+  result.digits = Number(parsed.query.digits) || 6;
+  result.step = Number(parsed.query.period) || 30;
+  result.label = parsed.label.account;
+  result.algorithm = String(result.algorithm).toLowerCase();
+  if (result.secret == null) valid = false;
+  if (result.label == null) valid = false;
+  if (!valid) return null;
+  return result;
+}

@@ -3,55 +3,41 @@ import TOTPCard from "../components/totp/card";
 import Fingerprint from "../pages/fingerprint";
 import { useState } from "react";
 
+let refreshInterval = undefined;
+
 function TOTPPage(props) {
   const { showScanner } = props;
-  const [value, setValue] = useState(true);
+  const [auth, setAuth] = useState(
+    !navigator.userAgentData.mobile ||
+      localStorage.getItem("fingerprint") === "false"
+  );
 
-  // function checkAuthorizationRequired() {}
-  const [auth, setAuth] = useState(!navigator.userAgentData.mobile);
+  let credentials = JSON.parse(localStorage.getItem("collection"));
 
-  // function networkFetch() {
-  //   var token = localStorage.getItem("supabase.auth.token");
-  //   if (token) {
-  //     token = JSON.parse(token).currentSession.access_token;
-  //     var consent = window.confirm("Fetch from database?");
-  //     if (consent) {
-  //       fetch("/api/sync", { headers: { Authorization: `Bearer ${token}` } })
-  //         .then((res) => res.json())
-  //         .then((data) => {
-  //           if (data)
-  //             localStorage.setItem(
-  //               "collection",
-  //               JSON.stringify(data.secrets.data)
-  //             );
-  //         });
-  //     }
-  //   } else {
-  //     alert("User not logged in!!");
-  //   }
-  // }
+  var [cards, setCards] = useState(
+    credentials &&
+      credentials.map((d, index) => <TOTPCard key={index} details={d} />)
+  );
 
-  function getCredentials() {
-    var collection = JSON.parse(localStorage.getItem("collection"));
-    return collection;
-  }
   const handleRefresh = () => {
-    setValue(!value);
+    credentials = JSON.parse(localStorage.getItem("collection"));
+    if (credentials)
+      setCards(
+        credentials.map((d, index) => <TOTPCard key={index} details={d} />)
+      );
   };
 
-  var credentials = getCredentials();
+  const noCredentialsText = navigator.userAgentData.mobile
+    ? "No credentials found. Add some using the button below."
+    : "This app is not meant for desktop devices as of now. Peace.";
 
-  const noCredentialsText =
-    "No credentials found. " +
-    (navigator.userAgentData.mobile
-      ? "Add some using the button below."
-      : "Add them in your phone.");
+  refreshInterval = clearInterval(refreshInterval);
+  refreshInterval = setInterval(handleRefresh, 30000);
 
-  var cards;
-  if (credentials != null)
-    cards = credentials.map((d, index) => <TOTPCard key={index} details={d} />);
-
-  setInterval(handleRefresh, 1000);
+  const switchToScanner = () => {
+    refreshInterval = clearInterval(refreshInterval);
+    showScanner(true);
+  };
 
   return auth ? (
     <div
@@ -66,13 +52,14 @@ function TOTPPage(props) {
       ) : (
         <div>{cards}</div>
       )}
+
       <div align="center">
         {navigator.userAgentData.mobile && (
           <Button
             style={{ margin: "10px" }}
             variant="contained"
             color="primary"
-            onClick={() => showScanner(true)}
+            onClick={switchToScanner}
           >
             ADD
           </Button>

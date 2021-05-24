@@ -1,4 +1,4 @@
-import React from "react";
+// import {useEffect} from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -20,6 +20,8 @@ export default function MenuAppBar() {
   //     setAuth(true);
   //   }
   // };
+
+  // useEffect(checkLogin);
 
   // const handleLogout = () => {
   //   supaClient.auth.signOut();
@@ -63,9 +65,6 @@ export default function MenuAppBar() {
           onClose={handleLoginDialogClose}
         /> */}
       </Toolbar>
-      {/* <div style={{ display: "none" }}>
-        {!auth ? setTimeout(checkLogin, 200) : null}
-      </div> */}
     </AppBar>
   );
 }

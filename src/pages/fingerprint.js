@@ -9,11 +9,6 @@ const noFingerPrintError =
 function FingerprintPage(props) {
   const { setAuthorized } = props;
 
-  if (localStorage.getItem("fingerprint") === "false") {
-    setTimeout(() => setAuthorized(true), 100);
-    return null;
-  }
-
   function fingerStart() {
     navigator.credentials.preventSilentAccess();
     navigator.credentials

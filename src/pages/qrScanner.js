@@ -3,8 +3,9 @@ import QrScannerWorkerPath from "file-loader!../../node_modules/qr-scanner/qr-sc
 import QrScanner from "qr-scanner";
 import TOTPUriParser from "../lib/parseUri";
 import Button from "@material-ui/core/Button";
+import { useEffect } from "react";
 
-function qrScanner(props) {
+function QRScanner(props) {
   QrScanner.WORKER_PATH = QrScannerWorkerPath;
   const { hideScanner } = props;
   var qrScanner;
@@ -13,28 +14,10 @@ function qrScanner(props) {
     const videoElem = document.getElementById("scanner-video-element");
     qrScanner = new QrScanner(videoElem, complete);
 
-    function verifyURL(url) {
-      var valid = true;
-      var result = {};
-      const parsed = TOTPUriParser(url);
-      result.secret = parsed.query.secret;
-      result.issuer = parsed.query.issuer || parsed.label.issuer || "N/A";
-      result.algorithm = parsed.query.algorithm || "sha1";
-      result.digits = Number(parsed.query.digits) || 6;
-      result.step = Number(parsed.query.period) || 30;
-      result.label = parsed.label.account;
-      result.algorithm = String(result.algorithm).toLowerCase();
-      if (result.secret == null) valid = false;
-      if (result.label == null) valid = false;
-      if (!valid) return null;
-      return result;
-    }
-
     async function complete(result) {
-      const verify = verifyURL(result);
+      const verify = TOTPUriParser(result);
       if (verify != null) {
         qrScanner.stop();
-        hideScanner(true);
       } else return;
       var collection = [];
       var current = JSON.parse(localStorage.getItem("collection"));
@@ -47,12 +30,13 @@ function qrScanner(props) {
       collection.push(verify);
       localStorage.setItem("collection", JSON.stringify(collection));
       localStorage.setItem("toPush", true);
+      hideScanner(true);
     }
 
     qrScanner.start();
   }
 
-  setTimeout(startScanner, 500);
+  useEffect(startScanner);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -89,4 +73,4 @@ function qrScanner(props) {
   );
 }
 
-export default qrScanner;
+export default QRScanner;
