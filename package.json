@@ -17,7 +17,8 @@
     "start": "PORT=3000 react-scripts start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sw": "react-scripts build; cd build/ && python3 -m http.server 3000"
   },
   "eslintConfig": {
     "extends": [
