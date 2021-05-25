@@ -8,11 +8,10 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
-  "short_name": "2fA",
+  "start_url": ".",
+  "short_name": "Ex2fA",
   "description": "This app provides a extended version of 2FA with minimal installation.",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "scope": "/"
+  "background_color": "#ffffff"
 }
