@@ -8,7 +8,7 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/?source=pwa",
+  "start_url": "/",
   "short_name": "2fA",
   "description": "This app provides a extended version of 2FA with minimal installation.",
   "display": "standalone",
