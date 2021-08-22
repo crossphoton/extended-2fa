@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.js": "/extended-2fa/static/js/main.b8f6f027.chunk.js",
-    "runtime-main.js": "/extended-2fa/static/js/runtime-main.446962e6.js",
-    "static/js/2.fb6e52b2.chunk.js": "/extended-2fa/static/js/2.fb6e52b2.chunk.js",
-    "static/js/2.fb6e52b2.chunk.js.map": "/extended-2fa/static/js/2.fb6e52b2.chunk.js.map",
-    "qr-scanner-worker.min.js": "/extended-2fa/1f6db49b81aeafce10da4850ddd1c06e.js",
+    "main.js": "/extended-2fa/static/js/main.3830664d.chunk.js",
+    "runtime-main.js": "/extended-2fa/static/js/runtime-main.ca0ef12b.js",
+    "static/js/2.d9a0579b.chunk.js": "/extended-2fa/static/js/2.d9a0579b.chunk.js",
+    "static/js/2.d9a0579b.chunk.js.map": "/extended-2fa/static/js/2.d9a0579b.chunk.js.map",
+    "qr-scanner-worker.min.js": "/extended-2fa/b55b6728694493e34c34561c22b85e2a.js",
     "index.html": "/extended-2fa/index.html",
-    "static/js/2.fb6e52b2.chunk.js.LICENSE.txt": "/extended-2fa/static/js/2.fb6e52b2.chunk.js.LICENSE.txt"
+    "static/js/2.d9a0579b.chunk.js.LICENSE.txt": "/extended-2fa/static/js/2.d9a0579b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.446962e6.js",
-    "static/js/2.fb6e52b2.chunk.js",
-    "static/js/main.b8f6f027.chunk.js"
+    "static/js/runtime-main.ca0ef12b.js",
+    "static/js/2.d9a0579b.chunk.js",
+    "static/js/main.3830664d.chunk.js"
   ]
 }
