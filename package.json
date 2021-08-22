@@ -7,6 +7,7 @@
     "otplib": "^12.0.1",
     "qr-scanner": "^1.2.0",
     "react": "^17.0.2",
+    "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.2",
     "react-github-login-button": "^1.0.1",
     "react-google-button": "^0.7.2",
@@ -14,7 +15,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "PORT=3000 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",

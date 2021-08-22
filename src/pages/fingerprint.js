@@ -37,6 +37,7 @@ function FingerprintPage(props) {
           setAuthorized(true);
           localStorage.setItem("fingerprint", "false");
         }
+        return;
       });
   }
 

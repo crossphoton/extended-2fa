@@ -2,14 +2,14 @@ import Button from "@material-ui/core/Button";
 import TOTPCard from "../components/totp/card";
 import Fingerprint from "../pages/fingerprint";
 import { useState } from "react";
+import { isMobile } from "react-device-detect";
 
 let refreshInterval = undefined;
 
 function TOTPPage(props) {
   const { showScanner } = props;
   const [auth, setAuth] = useState(
-    !navigator.userAgentData.mobile ||
-      localStorage.getItem("fingerprint") === "false"
+    !isMobile || localStorage.getItem("fingerprint") === "false"
   );
 
   let credentials = JSON.parse(localStorage.getItem("collection"));
@@ -27,7 +27,7 @@ function TOTPPage(props) {
       );
   };
 
-  const noCredentialsText = navigator.userAgentData.mobile
+  const noCredentialsText = isMobile
     ? "No credentials found. Add some using the button below."
     : "This app is not meant for desktop devices as of now. Peace.";
 
@@ -54,7 +54,7 @@ function TOTPPage(props) {
       )}
 
       <div align="center">
-        {navigator.userAgentData.mobile && (
+        {isMobile && (
           <Button
             style={{ margin: "10px" }}
             variant="contained"
